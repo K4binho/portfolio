@@ -25,7 +25,23 @@ function openProject(project) {
     const updateGallery = (step) => { galleryIndex = (galleryIndex + step + project.gallery.length) % project.gallery.length; galleryImage.classList.remove('gallery-slide'); void galleryImage.offsetWidth; galleryImage.src = `./assets/streamhub/${project.gallery[galleryIndex]}`; galleryImage.classList.add('gallery-slide'); galleryImage.style.setProperty('--zoom', '1'); galleryCount.textContent = `${galleryIndex + 1} / ${project.gallery.length}`; };
     modalContent.querySelector('.gallery-prev').addEventListener('click', () => updateGallery(-1));
     modalContent.querySelector('.gallery-next').addEventListener('click', () => updateGallery(1));
-    modalContent.querySelector('.gallery-main').addEventListener('wheel', event => { event.preventDefault(); const currentZoom = Number(galleryImage.style.getPropertyValue('--zoom') || 1); const nextZoom = Math.min(2.5, Math.max(1, currentZoom + (event.deltaY < 0 ? 0.15 : -0.15))); galleryImage.style.setProperty('--zoom', nextZoom.toFixed(2)); }, { passive: false });
+    modalContent.querySelector('.gallery-main').addEventListener('wheel', event => {
+      event.preventDefault();
+      const galleryMain = event.currentTarget;
+      const currentZoom = Number(galleryImage.style.getPropertyValue('--zoom') || 1);
+      const nextZoom = Math.min(2.5, Math.max(1, currentZoom + (event.deltaY < 0 ? 0.12 : -0.12)));
+      if (nextZoom === 1) {
+        galleryImage.style.setProperty('--origin-x', '50%');
+        galleryImage.style.setProperty('--origin-y', '50%');
+      } else {
+        const bounds = galleryMain.getBoundingClientRect();
+        const originX = Math.min(100, Math.max(0, ((event.clientX - bounds.left) / bounds.width) * 100));
+        const originY = Math.min(100, Math.max(0, ((event.clientY - bounds.top) / bounds.height) * 100));
+        galleryImage.style.setProperty('--origin-x', `${originX}%`);
+        galleryImage.style.setProperty('--origin-y', `${originY}%`);
+      }
+      galleryImage.style.setProperty('--zoom', nextZoom.toFixed(2));
+    }, { passive: false });
   }
   modal.showModal();
 }

@@ -3,7 +3,7 @@
 #project-modal::-webkit-scrollbar,#modal-content::-webkit-scrollbar{display:none;width:0;height:0}
 #modal-content{overflow:hidden;scrollbar-width:none;-ms-overflow-style:none}
 .gallery-main{position:relative;height:clamp(280px,43vh,460px);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(96,184,255,.25);background:#06101f;border-radius:12px}
-.gallery-main img{width:100%;height:100%;object-fit:contain;padding:18px;transform:scale(var(--zoom,1));transform-origin:center;transition:transform .18s ease;cursor:zoom-in;will-change:transform}
+.gallery-main img{width:100%;height:100%;object-fit:contain;padding:18px;transform:scale(var(--zoom,1));transform-origin:var(--origin-x,50%) var(--origin-y,50%);transition:transform .18s ease;cursor:zoom-in;will-change:transform}
 .gallery-main img.gallery-slide{animation:gallery-slide-in .42s cubic-bezier(.2,.8,.2,1)}
 @keyframes gallery-slide-in{from{opacity:.2;transform:translateX(28px) scale(var(--zoom,1))}to{opacity:1;transform:translateX(0) scale(var(--zoom,1))}}
 .gallery-arrow{position:absolute;z-index:2;top:50%;transform:translateY(-50%);width:44px;height:44px;border:1px solid rgba(116,198,255,.55);border-radius:50%;background:rgba(5,18,38,.88);color:#dff4ff;font-size:25px;cursor:pointer;transition:.2s ease}
