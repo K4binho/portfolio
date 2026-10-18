@@ -21,5 +21,6 @@ body.modal-open{overflow:hidden}
 .gallery-prev{left:16px}.gallery-next{right:16px}
 .gallery-counter{position:absolute;right:18px;bottom:14px;padding:5px 10px;border:1px solid rgba(116,198,255,.35);border-radius:999px;background:rgba(5,18,38,.85);color:#b9ddf5;font-size:12px;letter-spacing:.08em}
 .project-card.flagship{min-height:470px}.project-card.flagship .project-preview{height:66%}.project-card.flagship .project-content{z-index:2}
+.project-card{cursor:pointer}
 .project-card.flagship .project-content{top:calc(66% + 18px);bottom:auto}
 @media (max-width:700px){#project-modal{width:calc(100% - 20px);padding:28px 20px}.gallery-main{height:300px}.gallery-main img{padding:8px}.gallery-arrow{width:38px;height:38px}.project-card.flagship{min-height:430px}}
