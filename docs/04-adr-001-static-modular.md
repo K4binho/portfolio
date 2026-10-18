@@ -26,3 +26,7 @@ Usaremos HTML, CSS e JavaScript sem framework na primeira versão. A estrutura s
 ## Design rationale
 
 A paleta foi ajustada para uma direção azul fria inspirada na atmosfera visual da Rem: azul-marinho profundo na base, azul-celeste para ações, ciano para estados ativos e lavanda para detalhes secundários. A mudança é reversível e mantém o contraste e a linguagem de painel do StreamHub.
+
+## Evolução da apresentação
+
+Os projetos passaram a usar dados factuais de seus READMEs públicos, com detalhes, status e fluxos próprios. A interface agora usa modais, entrada sequencial de cards, pulso nos nós de arquitetura e terminal animado. A animação serve para explicar o funcionamento dos produtos, não apenas decorar a página.
