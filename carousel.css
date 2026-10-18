@@ -1,4 +1,10 @@
 #project-modal{width:min(980px,calc(100% - 32px));}
+html{scrollbar-color:#3a9de8 #07101f;scrollbar-width:thin}
+body::-webkit-scrollbar{width:11px}
+body::-webkit-scrollbar-track{background:#07101f}
+body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#72c8ff,#3a75e8);border:3px solid #07101f;border-radius:999px}
+body::-webkit-scrollbar-thumb:hover{background:#a8ddff}
+body.modal-open{overflow:hidden}
 #project-modal{max-height:calc(100vh - 28px);overflow:hidden;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none}
 #project-modal::-webkit-scrollbar,#modal-content::-webkit-scrollbar{display:none;width:0;height:0}
 #modal-content{overflow:hidden;scrollbar-width:none;-ms-overflow-style:none}

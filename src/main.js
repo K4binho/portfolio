@@ -43,10 +43,13 @@ function openProject(project) {
       galleryImage.style.setProperty('--zoom', nextZoom.toFixed(2));
     }, { passive: false });
   }
+  document.body.classList.add('modal-open');
   modal.showModal();
 }
 grid.addEventListener('click', event => { const button = event.target.closest('.project-open'); if (button) openProject(projects.find(project => project.number === button.dataset.project)); });
-document.querySelector('#modal-close').addEventListener('click', () => modal.close());
+const closeModal = () => { modal.close(); document.body.classList.remove('modal-open'); };
+document.querySelector('#modal-close').addEventListener('click', closeModal);
+modal.addEventListener('cancel', () => document.body.classList.remove('modal-open'));
 
 const terminalLine = document.querySelector('#terminal-line');
 const terminalMessages = ['$ initializing modular workspace...', '$ loading streamhub/plugin...', '$ oauth broker: ready', '$ rnnoise pipeline: active', '$ deployment manifest: synced'];
