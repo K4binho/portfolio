@@ -22,9 +22,10 @@ function openProject(project) {
     let galleryIndex = 0;
     const galleryImage = modalContent.querySelector('#gallery-image');
     const galleryCount = modalContent.querySelector('#gallery-count');
-    const updateGallery = (step) => { galleryIndex = (galleryIndex + step + project.gallery.length) % project.gallery.length; galleryImage.src = `./assets/streamhub/${project.gallery[galleryIndex]}`; galleryCount.textContent = `${galleryIndex + 1} / ${project.gallery.length}`; };
+    const updateGallery = (step) => { galleryIndex = (galleryIndex + step + project.gallery.length) % project.gallery.length; galleryImage.classList.remove('gallery-slide'); void galleryImage.offsetWidth; galleryImage.src = `./assets/streamhub/${project.gallery[galleryIndex]}`; galleryImage.classList.add('gallery-slide'); galleryImage.style.setProperty('--zoom', '1'); galleryCount.textContent = `${galleryIndex + 1} / ${project.gallery.length}`; };
     modalContent.querySelector('.gallery-prev').addEventListener('click', () => updateGallery(-1));
     modalContent.querySelector('.gallery-next').addEventListener('click', () => updateGallery(1));
+    modalContent.querySelector('.gallery-main').addEventListener('wheel', event => { event.preventDefault(); const currentZoom = Number(galleryImage.style.getPropertyValue('--zoom') || 1); const nextZoom = Math.min(2.5, Math.max(1, currentZoom + (event.deltaY < 0 ? 0.15 : -0.15))); galleryImage.style.setProperty('--zoom', nextZoom.toFixed(2)); }, { passive: false });
   }
   modal.showModal();
 }
