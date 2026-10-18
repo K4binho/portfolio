@@ -35,8 +35,12 @@ function openProject(project) {
       const bounds = galleryMain.getBoundingClientRect();
       const cursorX = event.clientX - bounds.left - bounds.width / 2;
       const cursorY = event.clientY - bounds.top - bounds.height / 2;
-      const panX = Math.max(-bounds.width * (nextZoom - 1) / 2, Math.min(bounds.width * (nextZoom - 1) / 2, -cursorX * (nextZoom - 1)));
-      const panY = Math.max(-bounds.height * (nextZoom - 1) / 2, Math.min(bounds.height * (nextZoom - 1) / 2, -cursorY * (nextZoom - 1)));
+      const currentPanX = parseFloat(galleryImage.style.getPropertyValue('--pan-x') || 0);
+      const currentPanY = parseFloat(galleryImage.style.getPropertyValue('--pan-y') || 0);
+      const panLimitX = bounds.width * (nextZoom - 1) / 2;
+      const panLimitY = bounds.height * (nextZoom - 1) / 2;
+      const panX = Math.max(-panLimitX, Math.min(panLimitX, cursorX - ((cursorX - currentPanX) / currentZoom) * nextZoom));
+      const panY = Math.max(-panLimitY, Math.min(panLimitY, cursorY - ((cursorY - currentPanY) / currentZoom) * nextZoom));
       galleryImage.style.setProperty('--zoom', nextZoom.toFixed(2));
       galleryImage.style.setProperty('--pan-x', `${panX.toFixed(1)}px`);
       galleryImage.style.setProperty('--pan-y', `${panY.toFixed(1)}px`);
