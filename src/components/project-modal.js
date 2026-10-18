@@ -19,4 +19,4 @@ export function openProject(modal, modalContent, project) {
   bindGallery(modalContent, project); document.body.classList.add('modal-open'); modal.showModal();
 }
 
-export function bindModalClose(modal) { const close = () => { modal.close(); document.body.classList.remove('modal-open'); }; document.querySelector('#modal-close').addEventListener('click', close); modal.addEventListener('cancel', () => document.body.classList.remove('modal-open')); }
+export function bindModalClose(modal) { const close = () => { modal.close(); document.body.classList.remove('modal-open'); }; document.querySelector('#modal-close').addEventListener('click', close); modal.addEventListener('click', event => { if (event.target === modal) close(); }); modal.addEventListener('cancel', () => document.body.classList.remove('modal-open')); }
