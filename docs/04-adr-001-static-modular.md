@@ -30,3 +30,5 @@ A paleta foi ajustada para uma direção azul fria inspirada na atmosfera visual
 ## Evolução da apresentação
 
 Os projetos passaram a usar dados factuais de seus READMEs públicos, com detalhes, status e fluxos próprios. A interface agora usa modais, entrada sequencial de cards, pulso nos nós de arquitetura e terminal animado. A animação serve para explicar o funcionamento dos produtos, não apenas decorar a página.
+
+As capturas reais do OBS foram adicionadas como galeria do StreamHub, mantendo os arquivos em `assets/streamhub/` e a lista de imagens no módulo de dados.
