@@ -1,5 +1,7 @@
 #project-modal{width:min(980px,calc(100% - 32px));}
-#project-modal{max-height:calc(100vh - 28px);overflow:hidden}
+#project-modal{max-height:calc(100vh - 28px);overflow:hidden;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none}
+#project-modal::-webkit-scrollbar,#modal-content::-webkit-scrollbar{display:none;width:0;height:0}
+#modal-content{overflow:hidden;scrollbar-width:none;-ms-overflow-style:none}
 .gallery-main{position:relative;height:clamp(280px,43vh,460px);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(96,184,255,.25);background:#06101f;border-radius:12px}
 .gallery-main img{width:100%;height:100%;object-fit:contain;padding:18px;transform:scale(var(--zoom,1));transform-origin:center;transition:transform .18s ease;cursor:zoom-in;will-change:transform}
 .gallery-main img.gallery-slide{animation:gallery-slide-in .42s cubic-bezier(.2,.8,.2,1)}
