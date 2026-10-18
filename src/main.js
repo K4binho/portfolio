@@ -1,95 +1,20 @@
 import { projects, stack } from './data.js';
+import { renderProjects } from './components/project-card.js';
+import { bindFilters } from './components/filters.js';
+import { bindModalClose, openProject } from './components/project-modal.js';
 
 const grid = document.querySelector('#project-grid');
-const stackList = document.querySelector('#stack-list');
-
-function projectCard(project) {
-  return `<article class="project-card ${project.type || ''} ${project.accent || ''}" data-category="${project.category}">${project.gallery ? `<div class="project-preview"><img src="./assets/streamhub/streamhub-hero.png" alt="Visão do StreamHub no OBS" /><span>LIVE SYSTEM PREVIEW</span></div>` : ''}<div class="project-meta"><span>${project.number}</span><span class="project-category">${project.category}</span></div><div class="project-content"><h3>${project.name}</h3><p>${project.description}</p><div class="tags">${project.tags.map(tag => `<span>${tag}</span>`).join('')}</div></div><button class="project-link project-open" data-project="${project.number}" aria-label="Ver detalhes de ${project.name}">↗</button></article>`;
-}
-
-function renderProjects(filter = 'all') {
-  grid.innerHTML = projects.filter(project => filter === 'all' || project.category === filter).map(projectCard).join('');
-}
-
-stackList.innerHTML = stack.map((item, index) => `<div class="stack-item"><span>0${index + 1}</span><strong>${item}</strong><i></i></div>`).join('');
-renderProjects();
-
 const modal = document.querySelector('#project-modal');
 const modalContent = document.querySelector('#modal-content');
-function openProject(project) {
-  modalContent.innerHTML = `<p class="section-kicker">PROJECT ${project.number} / ${project.category}</p><h2>${project.name}</h2><p class="modal-description">${project.detail || project.description}</p><div class="modal-status"><span class="pulse"></span>${project.status || 'Projeto público'}</div>${project.gallery ? `<div class="gallery"><div class="gallery-main"><button class="gallery-arrow gallery-prev" aria-label="Imagem anterior">←</button><img id="gallery-image" src="./assets/streamhub/${project.gallery[0]}" alt="Interface do ${project.name}" /><button class="gallery-arrow gallery-next" aria-label="Próxima imagem">→</button><span class="gallery-counter" id="gallery-count">1 / ${project.gallery.length}</span></div></div>` : ''}${project.flow ? `<div class="modal-flow">${project.flow.map((step, index) => `<span style="--delay:${index * 90}ms">${step}</span>`).join('<b>→</b>')}</div>` : ''}<div class="modal-tags">${project.tags.map(tag => `<span>${tag}</span>`).join('')}</div><a class="button button-primary" href="${project.link}" target="_blank" rel="noreferrer">Ver projeto no GitHub ↗</a>`;
-  if (project.gallery) {
-    let galleryIndex = 0;
-    const galleryImage = modalContent.querySelector('#gallery-image');
-    const galleryCount = modalContent.querySelector('#gallery-count');
-    const resetZoom = () => { galleryImage.style.setProperty('--zoom', '1'); galleryImage.style.setProperty('--pan-x', '0px'); galleryImage.style.setProperty('--pan-y', '0px'); };
-    const updateGallery = (step) => { galleryIndex = (galleryIndex + step + project.gallery.length) % project.gallery.length; galleryImage.classList.remove('gallery-slide'); void galleryImage.offsetWidth; galleryImage.src = `./assets/streamhub/${project.gallery[galleryIndex]}`; galleryImage.classList.add('gallery-slide'); resetZoom(); galleryCount.textContent = `${galleryIndex + 1} / ${project.gallery.length}`; };
-    modalContent.querySelector('.gallery-prev').addEventListener('click', () => updateGallery(-1));
-    modalContent.querySelector('.gallery-next').addEventListener('click', () => updateGallery(1));
-    modalContent.querySelector('.gallery-main').addEventListener('wheel', event => {
-      event.preventDefault();
-      const galleryMain = event.currentTarget;
-      const currentZoom = Number(galleryImage.style.getPropertyValue('--zoom') || 1);
-      const nextZoom = Math.min(2.5, Math.max(1, currentZoom + (event.deltaY < 0 ? 0.15 : -0.15)));
-      if (nextZoom === 1) return resetZoom();
-      const bounds = galleryMain.getBoundingClientRect();
-      const cursorX = event.clientX - bounds.left - bounds.width / 2;
-      const cursorY = event.clientY - bounds.top - bounds.height / 2;
-      const currentPanX = parseFloat(galleryImage.style.getPropertyValue('--pan-x') || 0);
-      const currentPanY = parseFloat(galleryImage.style.getPropertyValue('--pan-y') || 0);
-      const panLimitX = bounds.width * (nextZoom - 1) / 2;
-      const panLimitY = bounds.height * (nextZoom - 1) / 2;
-      const panX = Math.max(-panLimitX, Math.min(panLimitX, cursorX - ((cursorX - currentPanX) / currentZoom) * nextZoom));
-      const panY = Math.max(-panLimitY, Math.min(panLimitY, cursorY - ((cursorY - currentPanY) / currentZoom) * nextZoom));
-      galleryImage.style.setProperty('--zoom', nextZoom.toFixed(2));
-      galleryImage.style.setProperty('--pan-x', `${panX.toFixed(1)}px`);
-      galleryImage.style.setProperty('--pan-y', `${panY.toFixed(1)}px`);
-    }, { passive: false });
-    let dragging = false;
-    let dragX = 0;
-    let dragY = 0;
-    const clampPan = (value, limit) => Math.max(-limit, Math.min(limit, value));
-    const galleryMain = modalContent.querySelector('.gallery-main');
-    galleryMain.addEventListener('pointerdown', event => {
-      if (event.button !== 0 || event.target.closest('.gallery-arrow') || Number(galleryImage.style.getPropertyValue('--zoom') || 1) <= 1) return;
-      dragging = true;
-      dragX = event.clientX;
-      dragY = event.clientY;
-      galleryMain.setPointerCapture(event.pointerId);
-      galleryMain.classList.add('is-dragging');
-    });
-    galleryMain.addEventListener('pointermove', event => {
-      if (!dragging) return;
-      const zoom = Number(galleryImage.style.getPropertyValue('--zoom') || 1);
-      const bounds = galleryMain.getBoundingClientRect();
-      const currentX = parseFloat(galleryImage.style.getPropertyValue('--pan-x') || 0);
-      const currentY = parseFloat(galleryImage.style.getPropertyValue('--pan-y') || 0);
-      const nextX = clampPan(currentX + event.clientX - dragX, bounds.width * (zoom - 1) / 2);
-      const nextY = clampPan(currentY + event.clientY - dragY, bounds.height * (zoom - 1) / 2);
-      galleryImage.style.setProperty('--pan-x', `${nextX.toFixed(1)}px`);
-      galleryImage.style.setProperty('--pan-y', `${nextY.toFixed(1)}px`);
-      dragX = event.clientX;
-      dragY = event.clientY;
-    });
-    const stopDragging = event => { if (!dragging) return; dragging = false; galleryMain.releasePointerCapture?.(event.pointerId); galleryMain.classList.remove('is-dragging'); };
-    galleryMain.addEventListener('pointerup', stopDragging);
-    galleryMain.addEventListener('pointercancel', stopDragging);
-  }
-  document.body.classList.add('modal-open');
-  modal.showModal();
-}
-grid.addEventListener('click', event => { const button = event.target.closest('.project-open'); if (button) openProject(projects.find(project => project.number === button.dataset.project)); });
-const closeModal = () => { modal.close(); document.body.classList.remove('modal-open'); };
-document.querySelector('#modal-close').addEventListener('click', closeModal);
-modal.addEventListener('cancel', () => document.body.classList.remove('modal-open'));
+const stackList = document.querySelector('#stack-list');
+
+renderProjects(grid, projects);
+stackList.innerHTML = stack.map((item, index) => `<div class="stack-item"><span>0${index + 1}</span><strong>${item}</strong><i></i></div>`).join('');
+grid.addEventListener('click', event => { const button = event.target.closest('.project-open'); if (button) openProject(modal, modalContent, projects.find(project => project.number === button.dataset.project)); });
+bindModalClose(modal);
+bindFilters(document.querySelectorAll('.filter'), filter => renderProjects(grid, projects, filter));
 
 const terminalLine = document.querySelector('#terminal-line');
 const terminalMessages = ['$ initializing modular workspace...', '$ loading streamhub/plugin...', '$ oauth broker: ready', '$ rnnoise pipeline: active', '$ deployment manifest: synced'];
 let terminalIndex = 0;
 setInterval(() => { terminalIndex = (terminalIndex + 1) % terminalMessages.length; terminalLine.textContent = terminalMessages[terminalIndex]; }, 2200);
-
-document.querySelectorAll('.filter').forEach(button => button.addEventListener('click', () => {
-  document.querySelector('.filter.active')?.classList.remove('active');
-  button.classList.add('active');
-  renderProjects(button.dataset.filter);
-}));
