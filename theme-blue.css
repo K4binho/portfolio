@@ -1,0 +1,9 @@
+/* Rem-inspired cold blue visual theme */
+:root{--bg:#07101f;--surface:#0b172b;--surface-2:#102544;--text:#f1f7ff;--muted:#91a9c7;--line:#1b385e;--green:#a8d9ff;--blue:#72c8ff;--orange:#b9b4ff}
+.ambient-one{background:#2d85d3}.ambient-two{background:#7269db;opacity:.11}
+.hero h1 em,.contact h2 em{color:var(--blue)}
+.button-primary{background:var(--blue);color:#07101f}
+.filter:hover,.filter.active{background:var(--blue);border-color:var(--blue);color:var(--bg)}
+.project-card.flagship{background:linear-gradient(135deg,#102b4d,#0b172b)}
+.project-card.blue{background:linear-gradient(135deg,#102c48,#0b172b)}
+.project-card:hover{border-color:#4f91c7}.main-node{border-color:#4f91c7}.system-panel{background:rgba(11,23,43,.88)}

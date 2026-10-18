@@ -22,3 +22,7 @@ Usaremos HTML, CSS e JavaScript sem framework na primeira versão. A estrutura s
 
 - Framework frontend: rejeitado por adicionar complexidade sem necessidade inicial.
 - API do GitHub: adiada para evitar rate limits e dependência de dados externos.
+
+## Design rationale
+
+A paleta foi ajustada para uma direção azul fria inspirada na atmosfera visual da Rem: azul-marinho profundo na base, azul-celeste para ações, ciano para estados ativos e lavanda para detalhes secundários. A mudança é reversível e mantém o contraste e a linguagem de painel do StreamHub.
