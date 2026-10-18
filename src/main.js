@@ -41,6 +41,35 @@ function openProject(project) {
       galleryImage.style.setProperty('--pan-x', `${panX.toFixed(1)}px`);
       galleryImage.style.setProperty('--pan-y', `${panY.toFixed(1)}px`);
     }, { passive: false });
+    let dragging = false;
+    let dragX = 0;
+    let dragY = 0;
+    const clampPan = (value, limit) => Math.max(-limit, Math.min(limit, value));
+    const galleryMain = modalContent.querySelector('.gallery-main');
+    galleryMain.addEventListener('pointerdown', event => {
+      if (event.button !== 0 || event.target.closest('.gallery-arrow') || Number(galleryImage.style.getPropertyValue('--zoom') || 1) <= 1) return;
+      dragging = true;
+      dragX = event.clientX;
+      dragY = event.clientY;
+      galleryMain.setPointerCapture(event.pointerId);
+      galleryMain.classList.add('is-dragging');
+    });
+    galleryMain.addEventListener('pointermove', event => {
+      if (!dragging) return;
+      const zoom = Number(galleryImage.style.getPropertyValue('--zoom') || 1);
+      const bounds = galleryMain.getBoundingClientRect();
+      const currentX = parseFloat(galleryImage.style.getPropertyValue('--pan-x') || 0);
+      const currentY = parseFloat(galleryImage.style.getPropertyValue('--pan-y') || 0);
+      const nextX = clampPan(currentX + event.clientX - dragX, bounds.width * (zoom - 1) / 2);
+      const nextY = clampPan(currentY + event.clientY - dragY, bounds.height * (zoom - 1) / 2);
+      galleryImage.style.setProperty('--pan-x', `${nextX.toFixed(1)}px`);
+      galleryImage.style.setProperty('--pan-y', `${nextY.toFixed(1)}px`);
+      dragX = event.clientX;
+      dragY = event.clientY;
+    });
+    const stopDragging = event => { if (!dragging) return; dragging = false; galleryMain.releasePointerCapture?.(event.pointerId); galleryMain.classList.remove('is-dragging'); };
+    galleryMain.addEventListener('pointerup', stopDragging);
+    galleryMain.addEventListener('pointercancel', stopDragging);
   }
   document.body.classList.add('modal-open');
   modal.showModal();
