@@ -107,3 +107,14 @@ body.modal-open{overflow:hidden}
   .modal-flow,.modal-tags{margin:5px 0}
   .modal-actions .button{padding:7px 8px}
 }
+
+/* Evita altura vazia: o modal acompanha o conteúdo e só limita o máximo da viewport. */
+#project-modal{height:auto;min-height:0;overflow:hidden}
+@media (min-width:701px){
+  #project-modal{max-height:calc(100vh - 44px)}
+  .modal-visual{height:clamp(170px,24vh,205px);max-height:clamp(170px,24vh,205px)}
+  .modal-visual img,.modal-visual .project-visual{height:clamp(170px,24vh,205px);max-height:clamp(170px,24vh,205px)}
+}
+@media (max-width:700px){
+  #project-modal{max-height:calc(100vh - 24px)}
+}
