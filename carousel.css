@@ -1,120 +1,89 @@
-#project-modal{width:min(980px,calc(100% - 32px));}
+/* Project cards and modal share one responsive visual language. */
 .icon-svg{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.project-link .icon-svg{width:20px;height:20px}.modal-close .icon-svg{width:22px;height:22px}.modal-actions .icon-svg{width:15px;height:15px;margin-left:5px;vertical-align:-3px}.modal-flow b .icon-svg{width:18px;height:18px;vertical-align:-5px}
-.modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
-.modal-visual{margin:18px 0;border:1px solid rgba(114,200,255,.28);border-radius:10px;overflow:hidden;background:#06101f;box-shadow:inset 0 0 40px #0006}.modal-visual img,.modal-visual .project-visual{display:block;width:100%;height:260px;max-height:260px;object-fit:contain;object-position:center;min-height:0}
+.project-link .icon-svg{width:20px;height:20px}
+.modal-close .icon-svg{width:22px;height:22px}
+.modal-actions .icon-svg{width:15px;height:15px;margin-left:5px;vertical-align:-3px}
+.modal-flow b .icon-svg{width:18px;height:18px;vertical-align:-5px}
+
 html{scrollbar-color:#3a9de8 #07101f;scrollbar-width:thin}
 body::-webkit-scrollbar{width:11px}
 body::-webkit-scrollbar-track{background:#07101f}
 body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#72c8ff,#3a75e8);border:3px solid #07101f;border-radius:999px}
 body::-webkit-scrollbar-thumb:hover{background:#a8ddff}
 body.modal-open{overflow:hidden}
-#project-modal{max-height:calc(100vh - 28px);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none}
-#project-modal::-webkit-scrollbar,#modal-content::-webkit-scrollbar{display:none;width:0;height:0}
-#modal-content{overflow:hidden;scrollbar-width:none;-ms-overflow-style:none}
-.gallery-main{position:relative;height:clamp(280px,43vh,460px);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(96,184,255,.25);background:#06101f;border-radius:12px}
-.gallery-main{user-select:none;touch-action:none}
-.gallery-main img{width:100%;height:100%;object-fit:contain;padding:18px;transform:translate(var(--pan-x,0px),var(--pan-y,0px)) scale(var(--zoom,1));transform-origin:center;transition:transform .16s ease-out;cursor:grab;will-change:transform;user-select:none;-webkit-user-drag:none}
-.gallery-main.is-dragging img{cursor:grabbing;transition:none}
-.gallery-main img.gallery-slide{animation:gallery-slide-in .28s ease-out}
-@keyframes gallery-slide-in{from{opacity:0;filter:blur(3px)}to{opacity:1;filter:blur(0)}}
-.gallery-arrow{position:absolute;z-index:2;top:50%;transform:translateY(-50%);width:38px;height:38px;border:1px solid rgba(160,218,255,.42);border-radius:50%;background:rgba(5,18,38,.52);backdrop-filter:blur(10px);color:#dff4ff;font:300 19px/1 'DM Mono',monospace;cursor:pointer;transition:transform .22s ease,background .22s ease,border-color .22s ease,box-shadow .22s ease}
-.gallery-arrow:hover{background:rgba(65,157,226,.8);border-color:#b9e8ff;color:#06101f;box-shadow:0 0 18px rgba(75,175,255,.35);transform:translateY(-50%) scale(1.08)}
-.gallery-arrow:active{transform:translateY(-50%) scale(.96)}
-.gallery-prev{left:16px}.gallery-next{right:16px}
-.gallery-counter{position:absolute;right:18px;bottom:14px;padding:5px 10px;border:1px solid rgba(116,198,255,.35);border-radius:999px;background:rgba(5,18,38,.85);color:#b9ddf5;font-size:12px;letter-spacing:.08em}
-.project-card.flagship{min-height:470px}.project-card.flagship .project-preview{height:66%}.project-card.flagship .project-content{z-index:2}
-.project-card.has-preview{min-height:470px}.project-card.has-preview .project-preview{height:66%}.project-card.has-preview .project-content{top:calc(66% + 18px);bottom:auto;z-index:2}
-.project-card{cursor:pointer}
-.project-card.flagship .project-content{top:calc(66% + 18px);bottom:auto}
-@media (max-width:700px){#project-modal{width:calc(100% - 20px);padding:28px 20px}.gallery-main{height:300px}.gallery-main img{padding:8px}.gallery-arrow{width:38px;height:38px}.project-card.flagship,.project-card.has-preview{min-height:430px}}
 
-@media (max-width:700px){
+.project-card{cursor:pointer}
+.project-card.has-preview{min-height:470px}
+.project-card.has-preview .project-preview{height:66%}
+.project-card.has-preview .project-content{top:calc(66% + 18px);bottom:auto;z-index:2}
+
+#project-modal{
+  width:min(900px,calc(100% - 32px));
+  height:fit-content;
+  max-height:calc(100vh - 32px);
+  max-height:calc(100dvh - 32px);
+  padding:clamp(18px,3vw,32px);
+  overflow-x:hidden;
+  overflow-y:auto;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+#project-modal::-webkit-scrollbar{display:none}
+#modal-content{overflow:visible}
+#project-modal h2{font-size:clamp(30px,4vw,48px);margin:8px 40px 12px 0}
+.modal-description{font-size:clamp(12px,1.5vw,14px);line-height:1.5;margin:0}
+.modal-status{font-size:10px;margin:12px 0}
+.modal-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 0}
+.modal-actions .button{padding:10px 13px;gap:8px}
+.modal-visual{height:clamp(170px,28vh,290px);height:clamp(170px,28dvh,290px);margin:14px 0;border:1px solid rgba(114,200,255,.28);border-radius:10px;overflow:hidden;background:#06101f}
+.modal-visual img,.modal-visual .project-visual{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
+.modal-flow{gap:6px;margin:12px 0}
+.modal-flow span{padding:7px 9px}
+.modal-tags{gap:6px;margin:12px 0 0}
+
+@media(max-width:700px){
   .project-card{min-height:320px;padding:22px 24px}
   .project-card .project-content{left:24px;right:78px;bottom:58px}
   .project-card .project-content p{margin-bottom:16px;line-height:1.55}
-  .project-card .project-link{right:22px;bottom:20px;width:42px;height:42px;display:grid;place-items:center;font-size:22px;line-height:1}
+  .project-card .project-link{right:22px;bottom:20px;width:42px;height:42px;display:grid;place-items:center;line-height:1}
   .project-card.has-preview{min-height:0;padding:0;display:flex;flex-direction:column}
   .project-card.has-preview .project-preview{position:relative;inset:auto;height:230px;flex:0 0 230px;border-bottom:1px solid var(--line)}
-  .project-card.has-preview .project-meta{position:relative;z-index:2;top:auto;left:auto;right:auto;padding:14px 24px 0}
-  .project-card.has-preview .project-content{position:relative;inset:auto;left:auto;right:auto;bottom:auto;min-height:190px;padding:12px 78px 60px 24px}
-  .project-card.has-preview .project-link{bottom:20px}
+  .project-card.has-preview .project-meta{position:relative;z-index:2;padding:14px 24px 0}
+  .project-card.has-preview .project-content{position:relative;inset:auto;min-height:190px;padding:12px 78px 60px 24px}
   .project-card h3{font-size:24px;line-height:1.1}
   .project-card p{font-size:13px}
   .project-preview span{top:12px;right:12px;font-size:8px;padding:5px 6px}
-}
 
-@media (max-width:700px){
-  #project-modal{max-height:calc(100vh - 18px);padding:22px 18px;margin:auto}
-  #project-modal h2{font-size:32px;margin:8px 0 12px}
+  #project-modal{width:calc(100% - 20px);max-height:calc(100dvh - 20px);padding:18px}
+  #project-modal h2{font-size:clamp(26px,7vw,34px);margin:7px 34px 10px 0;overflow-wrap:anywhere}
   .modal-description{font-size:13px;line-height:1.45}
-  .modal-status{margin:12px 0;font-size:10px}
-  .modal-visual{margin:14px 0;height:150px}
-  .modal-visual img,.modal-visual .project-visual{height:150px;min-height:0;object-fit:contain}
-  .modal-flow{gap:5px;margin:14px 0}
-  .modal-flow span{padding:7px 8px;font-size:9px}
-  .modal-tags{gap:5px;margin:14px 0}
+  .modal-status{margin:10px 0;font-size:10px}
+  .modal-actions{margin-top:10px}
+  .modal-actions .button{padding:9px 10px;font-size:11px}
+  .modal-visual{height:clamp(145px,23dvh,240px);margin:12px 0}
+  .modal-flow{gap:5px;margin:10px 0}
+  .modal-flow span{padding:6px 8px;font-size:9px}
+  .modal-tags{gap:5px;margin-top:10px}
   .modal-tags span{padding:5px 7px;font-size:9px}
-  .modal-actions{gap:7px;margin-top:14px}
-  .modal-actions .button{padding:10px 11px;font-size:11px}
 }
 
-/* O modal é uma ficha completa: compacta o conteúdo para não depender de scroll. */
-@media (min-width:701px){
-  #project-modal{height:calc(100vh - 34px);max-height:calc(100vh - 34px);padding:24px 32px 18px;overflow:hidden}
-  #project-modal h2{font-size:clamp(34px,4vw,48px);margin:8px 0 12px}
-  .modal-description{font-size:13px;line-height:1.45}
-  .modal-status{margin:12px 0;font-size:10px}
-  .modal-actions{margin-top:12px}
-  .modal-visual{height:205px;max-height:205px;margin:14px 0}
-  .modal-visual img,.modal-visual .project-visual{height:205px;max-height:205px}
-  .modal-flow{gap:6px;margin:12px 0}
-  .modal-flow span{padding:7px 9px}
-  .modal-tags{gap:6px;margin:12px 0}
+@media(max-height:650px){
+  #project-modal{padding-block:12px}
+  #project-modal h2{margin-block:5px 8px}
+  .modal-status{margin:7px 0}
+  .modal-actions{margin-top:7px}
+  .modal-visual{height:clamp(100px,19dvh,160px);margin:8px 0}
+  .modal-flow,.modal-tags{margin-block:7px}
 }
 
-@media (max-width:700px){
-  #project-modal{height:calc(100vh - 18px);max-height:calc(100vh - 18px);overflow:hidden}
-  .modal-visual{height:120px;margin:10px 0}
-  .modal-visual img,.modal-visual .project-visual{height:120px}
-  .modal-flow{margin:10px 0}
-  .modal-tags{margin:10px 0}
-}
-
-/* Ajuste contínuo para larguras e alturas intermediárias: celular, tablet e notebook. */
-@media (max-width:1200px){
-  #project-modal{width:min(900px,calc(100% - 28px))}
-  .modal-visual,.modal-visual img,.modal-visual .project-visual{height:clamp(150px,27vh,205px);max-height:clamp(150px,27vh,205px)}
-}
-
-@media (max-width:700px){
-  #project-modal{width:calc(100% - 20px);padding:clamp(14px,4vw,22px) clamp(14px,5vw,18px)}
-  #project-modal h2{font-size:clamp(25px,8vw,32px);margin:6px 0 9px}
-  .modal-description{font-size:clamp(11px,3.4vw,13px);line-height:1.35}
-  .modal-status{margin:8px 0;font-size:9px}
-  .modal-actions{margin-top:8px}
-  .modal-actions .button{padding:8px 9px;font-size:10px}
-  .modal-visual,.modal-visual img,.modal-visual .project-visual{height:clamp(86px,20vh,140px);max-height:clamp(86px,20vh,140px);margin:8px 0}
-  .modal-flow{gap:4px;margin:8px 0}
-  .modal-flow span{padding:5px 6px;font-size:8px}
-  .modal-tags{gap:4px;margin:8px 0}
-  .modal-tags span{padding:4px 6px;font-size:8px}
-}
-
-@media (max-width:380px), (max-height:620px){
-  #project-modal{padding-block:10px}
-  .modal-visual,.modal-visual img,.modal-visual .project-visual{height:82px;max-height:82px}
-  .modal-flow,.modal-tags{margin:5px 0}
-  .modal-actions .button{padding:7px 8px}
-}
-
-/* Evita altura vazia: o modal acompanha o conteúdo e só limita o máximo da viewport. */
-#project-modal{height:auto;min-height:0;overflow:hidden}
-@media (min-width:701px){
-  #project-modal{max-height:calc(100vh - 44px)}
-  .modal-visual{height:clamp(170px,24vh,205px);max-height:clamp(170px,24vh,205px)}
-  .modal-visual img,.modal-visual .project-visual{height:clamp(170px,24vh,205px);max-height:clamp(170px,24vh,205px)}
-}
-@media (max-width:700px){
-  #project-modal{max-height:calc(100vh - 24px)}
+@media(max-height:450px){
+  #project-modal{padding-block:9px}
+  #project-modal h2{font-size:25px;margin-block:3px 5px}
+  .modal-description{font-size:11px;line-height:1.35}
+  .modal-status{margin:5px 0}
+  .modal-actions{margin-top:5px}
+  .modal-actions .button{padding:6px 9px}
+  .modal-visual{height:90px;margin:6px 0}
+  .modal-flow,.modal-tags{margin-block:5px}
+  .modal-flow span,.modal-tags span{padding:4px 6px}
 }
