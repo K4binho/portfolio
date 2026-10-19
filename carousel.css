@@ -26,3 +26,17 @@ body.modal-open{overflow:hidden}
 .project-card{cursor:pointer}
 .project-card.flagship .project-content{top:calc(66% + 18px);bottom:auto}
 @media (max-width:700px){#project-modal{width:calc(100% - 20px);padding:28px 20px}.gallery-main{height:300px}.gallery-main img{padding:8px}.gallery-arrow{width:38px;height:38px}.project-card.flagship,.project-card.has-preview{min-height:430px}}
+
+@media (max-width:700px){
+  .project-card{min-height:320px;padding:22px 24px}
+  .project-card .project-content{left:24px;right:78px;bottom:58px}
+  .project-card .project-content p{margin-bottom:16px;line-height:1.55}
+  .project-card .project-link{right:22px;bottom:20px;width:42px;height:42px;display:grid;place-items:center;font-size:22px;line-height:1}
+  .project-card.has-preview{min-height:0;padding:0;display:flex;flex-direction:column}
+  .project-card.has-preview .project-preview{position:relative;inset:auto;height:230px;flex:0 0 230px;border-bottom:1px solid var(--line)}
+  .project-card.has-preview .project-meta{position:absolute;z-index:3;top:18px;left:24px;right:24px}
+  .project-card.has-preview .project-content{position:relative;inset:auto;left:auto;right:auto;bottom:auto;min-height:190px;padding:22px 78px 60px 24px}
+  .project-card.has-preview .project-link{bottom:20px}
+  .project-card h3{font-size:24px;line-height:1.1}
+  .project-card p{font-size:13px}
+}
