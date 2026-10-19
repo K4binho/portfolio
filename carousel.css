@@ -1,5 +1,6 @@
 #project-modal{width:min(980px,calc(100% - 32px));}
 .modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.modal-visual{margin:24px 0;border:1px solid rgba(114,200,255,.28);border-radius:10px;overflow:hidden;background:#06101f;box-shadow:inset 0 0 40px #0006}.modal-visual .project-visual{display:block;width:100%;height:auto;min-height:250px}
 html{scrollbar-color:#3a9de8 #07101f;scrollbar-width:thin}
 body::-webkit-scrollbar{width:11px}
 body::-webkit-scrollbar-track{background:#07101f}
