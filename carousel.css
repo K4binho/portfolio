@@ -80,3 +80,30 @@ body.modal-open{overflow:hidden}
   .modal-flow{margin:10px 0}
   .modal-tags{margin:10px 0}
 }
+
+/* Ajuste contínuo para larguras e alturas intermediárias: celular, tablet e notebook. */
+@media (max-width:1200px){
+  #project-modal{width:min(900px,calc(100% - 28px))}
+  .modal-visual,.modal-visual img,.modal-visual .project-visual{height:clamp(150px,27vh,205px);max-height:clamp(150px,27vh,205px)}
+}
+
+@media (max-width:700px){
+  #project-modal{width:calc(100% - 20px);padding:clamp(14px,4vw,22px) clamp(14px,5vw,18px)}
+  #project-modal h2{font-size:clamp(25px,8vw,32px);margin:6px 0 9px}
+  .modal-description{font-size:clamp(11px,3.4vw,13px);line-height:1.35}
+  .modal-status{margin:8px 0;font-size:9px}
+  .modal-actions{margin-top:8px}
+  .modal-actions .button{padding:8px 9px;font-size:10px}
+  .modal-visual,.modal-visual img,.modal-visual .project-visual{height:clamp(86px,20vh,140px);max-height:clamp(86px,20vh,140px);margin:8px 0}
+  .modal-flow{gap:4px;margin:8px 0}
+  .modal-flow span{padding:5px 6px;font-size:8px}
+  .modal-tags{gap:4px;margin:8px 0}
+  .modal-tags span{padding:4px 6px;font-size:8px}
+}
+
+@media (max-width:380px), (max-height:620px){
+  #project-modal{padding-block:10px}
+  .modal-visual,.modal-visual img,.modal-visual .project-visual{height:82px;max-height:82px}
+  .modal-flow,.modal-tags{margin:5px 0}
+  .modal-actions .button{padding:7px 8px}
+}
