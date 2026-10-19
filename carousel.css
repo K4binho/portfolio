@@ -2,14 +2,14 @@
 .icon-svg{display:inline-block;width:1.05em;height:1.05em;vertical-align:-.18em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .project-link .icon-svg{width:20px;height:20px}.modal-close .icon-svg{width:22px;height:22px}.modal-actions .icon-svg{width:15px;height:15px;margin-left:5px;vertical-align:-3px}.modal-flow b .icon-svg{width:18px;height:18px;vertical-align:-5px}
 .modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
-.modal-visual{margin:24px 0;border:1px solid rgba(114,200,255,.28);border-radius:10px;overflow:hidden;background:#06101f;box-shadow:inset 0 0 40px #0006}.modal-visual img,.modal-visual .project-visual{display:block;width:100%;height:auto;max-height:430px;object-fit:contain;object-position:center;min-height:250px}
+.modal-visual{margin:18px 0;border:1px solid rgba(114,200,255,.28);border-radius:10px;overflow:hidden;background:#06101f;box-shadow:inset 0 0 40px #0006}.modal-visual img,.modal-visual .project-visual{display:block;width:100%;height:260px;max-height:260px;object-fit:contain;object-position:center;min-height:0}
 html{scrollbar-color:#3a9de8 #07101f;scrollbar-width:thin}
 body::-webkit-scrollbar{width:11px}
 body::-webkit-scrollbar-track{background:#07101f}
 body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#72c8ff,#3a75e8);border:3px solid #07101f;border-radius:999px}
 body::-webkit-scrollbar-thumb:hover{background:#a8ddff}
 body.modal-open{overflow:hidden}
-#project-modal{max-height:calc(100vh - 28px);overflow:hidden;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none}
+#project-modal{max-height:calc(100vh - 28px);overflow-y:auto;scrollbar-width:none;-ms-overflow-style:none}
 #project-modal::-webkit-scrollbar,#modal-content::-webkit-scrollbar{display:none;width:0;height:0}
 #modal-content{overflow:hidden;scrollbar-width:none;-ms-overflow-style:none}
 .gallery-main{position:relative;height:clamp(280px,43vh,460px);display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid rgba(96,184,255,.25);background:#06101f;border-radius:12px}
