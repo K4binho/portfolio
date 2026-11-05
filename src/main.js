@@ -10,7 +10,7 @@ const stackList = document.querySelector('#stack-list');
 
 renderProjects(grid, projects);
 stackList.innerHTML = stack.map((item, index) => `<div class="stack-item"><span>0${index + 1}</span><strong>${item}</strong><i></i></div>`).join('');
-grid.addEventListener('click', event => { const card = event.target.closest('.project-card'); if (card) openProject(modal, modalContent, projects.find(project => project.number === card.dataset.number || project.number === card.querySelector('.project-meta span')?.textContent)); });
+grid.addEventListener('click', event => { const card = event.target.closest('.project-card'); if (card) openProject(modal, modalContent, projects.find(project => project.number === card.dataset.number), Number(card.querySelector('.card-gallery').dataset.slide)); });
 bindModalClose(modal);
 bindFilters(document.querySelectorAll('.filter'), filter => renderProjects(grid, projects, filter));
 
