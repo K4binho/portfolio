@@ -8,7 +8,8 @@ export function mountCarousel(host, project, expanded = false, initial = 0) {
   host.setAttribute('role', 'region');
   host.setAttribute('aria-roledescription', 'carrossel');
   host.setAttribute('aria-label', 'Imagens de ' + project.name);
-  host.innerHTML = '<div class="slides"></div><div class="slide-controls"><button type="button" aria-label="Imagem anterior">‹</button><div class="slide-caption" aria-live="polite"><strong></strong><small></small></div><button type="button" aria-label="Próxima imagem">›</button></div>';
+  const chevron = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m14.5 5-7 7 7 7"/></svg>';
+  host.innerHTML = `<div class="slide-stage"><div class="slides"></div>${slides.length > 1 ? `<div class="slide-nav"><button class="slide-prev" type="button" aria-label="Imagem anterior">${chevron}</button><button class="slide-next" type="button" aria-label="Próxima imagem">${chevron}</button></div>` : ''}</div><div class="slide-caption" aria-live="polite"><strong></strong><small></small></div>`;
   const track = host.querySelector('.slides');
   for (const [label, file] of slides) {
     const frame = document.createElement(expanded ? 'a' : 'div');
@@ -24,7 +25,7 @@ export function mountCarousel(host, project, expanded = false, initial = 0) {
     frame.append(img);
     track.append(frame);
   }
-  const buttons = host.querySelectorAll('button');
+  const buttons = host.querySelectorAll('.slide-nav button');
   function update(index) {
     host.dataset.slide = String(index);
     host.querySelector('strong').textContent = slides[index][0];
