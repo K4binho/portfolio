@@ -11,7 +11,6 @@ export function mountCarousel(host, project, expanded = false, initial = 0) {
   const chevron = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m14.5 5-7 7 7 7"/></svg>';
   host.innerHTML = `<div class="slide-stage"><div class="slides"></div>${slides.length > 1 ? `<div class="slide-nav"><button class="slide-prev" type="button" aria-label="Imagem anterior">${chevron}</button><button class="slide-next" type="button" aria-label="Próxima imagem">${chevron}</button></div>` : ''}</div><div class="slide-caption" aria-live="polite"><strong></strong><small></small></div>`;
   const track = host.querySelector('.slides');
-  const stage = host.querySelector('.slide-stage');
   for (const [label, file] of slides) {
     const frame = document.createElement(expanded ? 'a' : 'div');
     const img = new Image();
@@ -25,18 +24,8 @@ export function mountCarousel(host, project, expanded = false, initial = 0) {
     }
     frame.append(img);
     track.append(frame);
-    img.addEventListener('load', () => {
-      if (track.children[Number(host.dataset.slide)]?.contains(img)) placeNavigation();
-    });
   }
   const buttons = host.querySelectorAll('.slide-nav button');
-  function placeNavigation() {
-    if (!buttons.length) return;
-    const img = track.children[Number(host.dataset.slide)]?.querySelector('img');
-    if (!img?.naturalWidth || !stage.clientHeight) return;
-    const displayedWidth = Math.min(stage.clientWidth, stage.clientHeight * img.naturalWidth / img.naturalHeight);
-    host.style.setProperty('--nav-width', Math.min(stage.clientWidth, displayedWidth + 72) + 'px');
-  }
   function update(index) {
     host.dataset.slide = String(index);
     host.querySelector('strong').textContent = slides[index][0];
@@ -44,7 +33,6 @@ export function mountCarousel(host, project, expanded = false, initial = 0) {
     for (const [i, frame] of [...track.children].entries()) {
       if (expanded) frame.tabIndex = i === index ? 0 : -1;
     }
-    placeNavigation();
   }
   const go = (index, animated = true) => {
     const next = (index + slides.length) % slides.length;
@@ -62,6 +50,5 @@ export function mountCarousel(host, project, expanded = false, initial = 0) {
   };
   track.onscrollend = () => update(Math.min(slides.length-1, Math.round(track.scrollLeft / (track.clientWidth || 1))));
   update(initial);
-  if (buttons.length) new ResizeObserver(placeNavigation).observe(stage);
   if(initial) requestAnimationFrame(()=>go(initial, false));
 }
