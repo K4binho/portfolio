@@ -1,4 +1,5 @@
 export const galleries = {
+  '06': [['Player atual', 'k4bot/player-atual.png'], ['Player em uso no Discord', 'k4bot/discord-player.png']],
   '01': [['Visão geral','streamhub/streamhub-hero.webp'], ...['Múltiplas saídas','Informações da transmissão','Chat integrado','Configuração dos chats','Overlay do chat','Mensagens do overlay','Adicionar destino','Moderação','Filtro de mensagens','Filtro de áudio'].map((label,i)=>[label,'streamhub/streamhub-'+String(i+1).padStart(2,'0')+'.png'])],
   '02': [['K4 PLAY','k4-play/k4-play-cover.webp'],['Página inicial','k4-play/inicio.jpg']],
   '03': [['Operação do bot','promo-bot/operacao.jpg'],['Arquitetura do bot','promo-bot/arquitetura.jpg']],
